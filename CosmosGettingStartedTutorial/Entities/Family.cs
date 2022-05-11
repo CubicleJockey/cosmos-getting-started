@@ -11,9 +11,7 @@ namespace CosmosGettingStartedTutorial.Entities
         public Child[] Children { get; set; }
         public Address Address { get; set; }
         public bool IsRegistered { get; set; }
-        public override string ToString()
-        {
-            return JsonConvert.SerializeObject(this);
-        }
+
+        public override string ToString() => JsonConvert.SerializeObject(this);
     }
 }
