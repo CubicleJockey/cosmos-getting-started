@@ -36,7 +36,7 @@ namespace CosmosGettingStartedTutorial
         {
             try
             {
-                WriteLine("Beginning operations...\n");
+                WriteLine($"Beginning operations...{Environment.NewLine}");
                 var p = new Program();
                 await p.GetStartedDemoAsync();
 
@@ -76,6 +76,10 @@ namespace CosmosGettingStartedTutorial
             await QueryItemsAsync();
             await ReplaceFamilyItemAsync();
             await DeleteFamilyItemAsync();
+
+
+            WriteLine("Press any key to cleanup database!");
+            ReadKey();
             await DeleteDatabaseAndCleanupAsync();
         }
         // </GetStartedDemoAsync>
@@ -170,7 +174,7 @@ namespace CosmosGettingStartedTutorial
             catch(CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
             {
                 // Create an item in the container representing the Andersen family. Note we provide the value of the partition key for this item, which is "Andersen"
-                var andersenFamilyResponse = await container.CreateItemAsync<Family>(andersenFamily, new PartitionKey(andersenFamily.LastName));
+                var andersenFamilyResponse = await container.CreateItemAsync(andersenFamily, new PartitionKey(andersenFamily.LastName));
 
                 // Note that after creating the item, we can access the body of the item with the Resource property off the ItemResponse. We can also access the RequestCharge property to see the amount of RUs consumed on this request.
                 WriteLine($"Created item in database with id: {andersenFamilyResponse.Resource.Id} Operation consumed {andersenFamilyResponse.RequestCharge} RUs.{Environment.NewLine}");
